@@ -44,7 +44,7 @@ include prepare
 
 # Install packages needed for building
 class install {
-  $JavaPackages = [ 'maven2', 'ant','git','openjdk-7-jre','openjdk-6-jdk','subversion','nodejs' ]
+  $JavaPackages = [ 'maven', 'maven2', 'ant','git','openjdk-7-jre','openjdk-6-jdk','subversion','nodejs' ]
   package { $JavaPackages :
     ensure  => present,
     require => Class['prepare'],
@@ -77,26 +77,6 @@ class install {
     ensure => 'link',
     target => "/opt/grails-$GrailsVersion",    
     require => Exec['extract grails'],
-  }
-
-  # install maven 3
-  wget::fetch { 'fetch maven 3':
-    source      => "http://apache.mirrors.pair.com/maven/maven-3/${Maven3Version}/binaries/apache-maven-${Maven3Version}-bin.zip",
-    destination => '/tmp/mvn3.zip',
-    require => Package['unzip']
-  }
-
-  exec { 'extract maven 3':
-    command => "/usr/bin/unzip -o /tmp/mvn3.zip",
-    cwd     => "/usr/share/",
-    creates => "/usr/share/apache-maven-${Maven3Version}/",
-    require =>  Wget::Fetch['fetch maven 3']
-  }
-  file { 'link mvn' :
-    path   => '/bin/mvn3',
-    ensure => 'link',
-    target => "/usr/share/apache-maven-${Maven3Version}/bin/mvn",    
-    require => Exec['extract maven 3'],
   }
 
 }
@@ -221,7 +201,7 @@ class { 'bamboo_agent':
     'system.builder.command.Bash'                          => '/bin/bash',
     'system.jdk.openjdk-6-jdk'                             => '/usr/lib/jvm/java-6-openjdk-amd64',
     'system.jdk.openjdk-7-jdk'                             => '/usr/lib/jvm/java-7-openjdk-amd64',
-    'system.builder.mvn3.Maven\ 3'                         => '/usr/share/maven3',
+    'system.builder.mvn3.Maven\ 3'                         => '/usr/share/maven',
     'system.builder.mvn2.Maven\ 2'                         => '/usr/share/maven2',
     "system.builder.grailsBuilder.Grails\\ $GrailsVersion" => '/opt/grails',
     'system.builder.node.Node.js'                          => '/usr/bin/nodejs',
