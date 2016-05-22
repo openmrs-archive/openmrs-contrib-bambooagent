@@ -66,7 +66,7 @@ class install {
     require => Class['prepare'],
   }
    # Other helper packages
-  package { 'unzip' :
+  package { ['unzip', 'transifex-client'] :
     ensure  => latest,
     require => Class['prepare'],
   }
@@ -195,6 +195,10 @@ class configs {
     owner   => 'root',
     group   => 'root',
     source  => 'puppet:///modules/openmrs-contrib-bambooagent/scripts',
+  }
+  file { ["${bamboo_user_home_1}/.transifexrc","${bamboo_user_home_2}/.transifexrc"]:
+    mode   => 644,
+    source => 'puppet:///modules/openmrs-contrib-bambooagent/transifexrc',
   }
 }
 include configs
