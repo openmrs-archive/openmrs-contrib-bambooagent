@@ -1,0 +1,26 @@
+FORGE
+  remote: https://forgeapi.puppetlabs.com
+  specs:
+    garethr-docker (4.0.2)
+      puppetlabs-apt (<= 1.8.0, >= 1.1.0)
+      puppetlabs-stdlib (>= 4.1.0)
+      stahnma-epel (>= 0.0.6)
+    kayak-r9util (0.0.4)
+      puppetlabs-stdlib (>= 3.2.0)
+    maestrodev-wget (1.5.6)
+    puppetlabs-apt (1.8.0)
+      puppetlabs-stdlib (>= 2.2.1)
+    puppetlabs-java (1.2.0)
+      puppetlabs-stdlib (>= 2.4.0)
+    puppetlabs-stdlib (4.4.0)
+    stahnma-epel (1.2.2)
+      puppetlabs-stdlib (>= 3.0.0)
+
+DEPENDENCIES
+  garethr-docker (= 4.0.2)
+  kayak-r9util (= 0.0.4)
+  maestrodev-wget (= 1.5.6)
+  puppetlabs-apt (= 1.8.0)
+  puppetlabs-java (= 1.2.0)
+  puppetlabs-stdlib (= 4.4.0)
+

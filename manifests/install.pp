@@ -2,14 +2,10 @@
 # openmrs-contrib-bambooagent
 # Required OS: Ubuntu 14.04
 # Required modules should be installed previously with librarian-puppet
-# $ apt-get install git ruby-dev
-# $ gem install librarian-puppet --no-ri --no-rdoc
-# $ cp Puppetfile /etc/puppet/
-# $ cd /etc/puppet/; librarian-puppet install
 
 ##
 # Vars
-$bamboo_server = "https://ci.openmrs.org"
+$bamboo_server = "https://ci-stg.openmrs.org"
 $GrailsVersion = "2.3.7"
 $Maven3Version = "3.2.5"
 $bamboo_user_1="bamboo-agent-1"
