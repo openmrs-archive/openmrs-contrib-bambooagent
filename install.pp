@@ -197,7 +197,7 @@ class configs {
     source  => 'puppet:///modules/openmrs-contrib-bambooagent/scripts',
   }
   file { ["${bamboo_user_home_1}/.transifexrc","${bamboo_user_home_2}/.transifexrc"]:
-    mode   => 644,
+    mode   => 666,
     source => 'puppet:///modules/openmrs-contrib-bambooagent/transifexrc',
   }
 }
