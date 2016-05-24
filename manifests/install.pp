@@ -1,13 +1,6 @@
 ##
-# openmrs-contrib-bambooagent
-# Required OS: Ubuntu 14.04
-# Required modules should be installed previously with librarian-puppet
-
-##
 # Vars
 $bamboo_server = "https://ci-stg.openmrs.org"
-$GrailsVersion = "2.3.7"
-$Maven3Version = "3.2.5"
 $bamboo_user_1="bamboo-agent-1"
 $bamboo_user_home_1 = "/home/bamboo-agent-1"
 $bamboo_user_2="bamboo-agent-2"
@@ -16,12 +9,8 @@ $bamboo_user_home_2 = "/home/bamboo-agent-2"
 # Ensure the ppa repo is installed before installing maven3 package
 class prepare {
   
-  class { 'apt':
-    always_apt_update    => true,
-  }
+
  
-  apt::ppa { 'ppa:chris-lea/node.js' : }
-  apt::ppa { 'ppa:openjdk-r/ppa' : }
 
   user { $bamboo_user_1:
     ensure     => 'present',
@@ -40,81 +29,6 @@ class prepare {
 
 }
 include prepare
-
-
-# Install packages needed for building
-class install {
-  $JavaPackages = [ 'maven2', 'ant','git','openjdk-7-jre','openjdk-6-jdk', 'openjdk-8-jdk', 'subversion','nodejs' ]
-  package { $JavaPackages :
-    ensure  => present,
-    require => Class['prepare'],
-  }
-  exec { 'install bower':
-    command => "/usr/bin/npm install bower -g",
-    creates => "/usr/bin/bower",
-    require => Package["nodejs"],
-  }
-
-  #Install packages needed for tests
-  $TestPackages = [ 'chromium-browser','firefox','xvfb' ]
-  package { $TestPackages :
-    ensure  => latest,
-    require => Class['prepare'],
-  }
-   # Other helper packages
-  package { ['unzip', 'transifex-client'] :
-    ensure  => latest,
-    require => Class['prepare'],
-  }
-  wget::fetch { 'fetch grails' :
-    source  => "http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-$GrailsVersion.zip",
-    destination => "/opt/grails-$GrailsVersion.zip",
-    timeout     => 1800,
-    require => Package['unzip']
-  }
-  exec { 'extract grails' :
-    command => "/usr/bin/unzip -o grails-$GrailsVersion.zip",
-    cwd     => '/opt',
-    creates => "/opt/grails-$GrailsVersion",
-    require => Wget::Fetch['fetch grails'],
-  }
-  file { 'link grails' :
-    path   => '/opt/grails',
-    ensure => 'link',
-    target => "/opt/grails-$GrailsVersion",    
-    require => Exec['extract grails'],
-  }
-
-  # install maven 3
-  wget::fetch { 'fetch maven 3':
-    source      => "http://apache.mirrors.pair.com/maven/maven-3/${Maven3Version}/binaries/apache-maven-${Maven3Version}-bin.zip",
-    destination => '/tmp/mvn3.zip',
-    require => Package['unzip']
-  }
-
-  exec { 'extract maven 3':
-    command => "/usr/bin/unzip -o /tmp/mvn3.zip",
-    cwd     => "/usr/share/",
-    creates => "/usr/share/apache-maven-${Maven3Version}/",
-    require =>  Wget::Fetch['fetch maven 3']
-  }
-  file { 'link mvn' :
-    path   => '/bin/mvn3',
-    ensure => 'link',
-    target => "/usr/share/apache-maven-${Maven3Version}/bin/mvn",    
-    require => Exec['extract maven 3'],
-  }
-
-  include 'docker'
-
-}
-include install
-
-
-exec{ "update-java-alternatives -s java-1.7.0-openjdk":
-    path    => ["/usr/bin", "/usr/sbin"],
-    require => Class['install'],
-}
 
 define bamboo_agent_home_config(
   $home = $title,
@@ -187,15 +101,12 @@ class configs {
   file { '/opt/scripts' :
     ensure  => directory,
     recurse => true,
-    mode    => 755,
+    mode    => '0755',
     owner   => 'root',
     group   => 'root',
     source  => 'puppet:///modules/openmrs-contrib-bambooagent/scripts',
   }
-  file { ["${bamboo_user_home_1}/.transifexrc","${bamboo_user_home_2}/.transifexrc"]:
-    mode   => 644,
-    source => 'puppet:///modules/openmrs-contrib-bambooagent/transifexrc',
-  }
+
 }
 include configs
 
@@ -242,10 +153,5 @@ class { 'bamboo_agent':
   }
 }
 
- cron { '/tmp':
-    minute  => 15,
-    hour    => 4,
-    command => "/usr/sbin/tmpreaper 1d /tmp -a -T 120",
-    require => Package['tmpreaper'],
-  }
+
 

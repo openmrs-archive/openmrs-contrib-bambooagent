@@ -1,0 +1,3 @@
+---
+bamboo_agent_home::file::bamboo_user_home_1: '/home/bamboo-agent-1'
+bamboo_agent_home::file::bamboo_user_home_2: '/home/bamboo-agent-2'

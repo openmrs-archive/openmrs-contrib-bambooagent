@@ -31,6 +31,9 @@ Other vagrant commands can be found in [Confluence](https://wiki.openmrs.org/x/C
   - Git, make, ruby-dev
   - librarian-puppet (`gem install librarian-puppet  --no-ri --no-rdoc`)
 
+This tree doesn't work with puppet 4. 
+
+
 ### Setting up new machine
 #### Configuring git SSH
 ```
