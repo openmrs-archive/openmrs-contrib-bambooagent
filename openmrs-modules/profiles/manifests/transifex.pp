@@ -3,6 +3,6 @@ class profiles::transifex {
     ensure  => latest,
   }
   bamboo_agent_home::file { '.transifexrc':
-    source      => 'puppet:///profiles/transifex/dot-transifexrc',
+    content => template('profiles/transifex/dot-transifexrc.erb'),
   }
 }

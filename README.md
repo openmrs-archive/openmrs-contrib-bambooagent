@@ -19,6 +19,8 @@ Download the correct versions of third party modules into 'modules' folder:
  
 To run an Ubuntu 14.04 VM:
 ```$ vagrant up ```
+.... and go grab a coffee. Or two. Maybe a shower. While waiting for it to finish downloading the internet. 
+
 
 Other vagrant commands can be found in [Confluence](https://wiki.openmrs.org/x/CIC3Ag)
 

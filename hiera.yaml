@@ -3,6 +3,7 @@
 :yaml:
   :datadir: "/etc/puppet/hieradata"
 :hierarchy:
+  - "environments/%{::environment}"
   - "common"
 :logger: console
 

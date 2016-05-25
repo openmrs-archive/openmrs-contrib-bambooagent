@@ -1,22 +1,22 @@
 class profiles::ruby_buildtime (
-  $grailsVersion = "2.3.7"
+  $grails_version,
 ){
    wget::fetch { 'fetch grails' :
-    source  => "http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-${grailsVersion}.zip",
-    destination => "/opt/grails-${grailsVersion}.zip",
+    source  => "http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-${grails_version}.zip",
+    destination => "/opt/grails-${grails_version}.zip",
     timeout     => 1800,
     require => Package['unzip']
   }
-  -> 
+  ->
   exec { 'extract grails' :
-    command => "/usr/bin/unzip -o grails-${grailsVersion}.zip",
+    command => "/usr/bin/unzip -o grails-${grails_version}.zip",
     cwd     => '/opt',
-    creates => "/opt/grails-${grailsVersion}",
+    creates => "/opt/grails-${grails_version}",
   }
-  -> 
+  ->
   file { 'link grails' :
     path   => '/opt/grails',
     ensure => 'link',
-    target => "/opt/grails-${grailsVersion}",    
+    target => "/opt/grails-${grails_version}",
   }
 }

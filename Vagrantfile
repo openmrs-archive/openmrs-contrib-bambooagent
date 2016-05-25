@@ -23,6 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "puppet" do |puppet|
     puppet.module_path = [ 'modules', 'openmrs-modules' ]
     puppet.manifest_file = 'site.pp'
+#    puppet.options = ['--debug']
+#    puppet.facter = {
+#      "environment" => "vagrant"
+#    }
   end
 
 end

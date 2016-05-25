@@ -1,3 +1,7 @@
-class profiles::docker {
-  include docker
+class profiles::docker (
+  $users,
+){
+  class { '::docker':
+    docker_users => $users,
+  }
 }
