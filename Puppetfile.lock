@@ -21,11 +21,13 @@ GIT
   ref: 01a38f4a5c943098d8b17bd946f7009a8ed481a9
   sha: 01a38f4a5c943098d8b17bd946f7009a8ed481a9
   specs:
-    puppet-bamboo_agent (0.0.1)
+    puppet-bamboo_agent (0.0.8)
+      kayak-r9util (>= 0.0.3)
+      puppetlabs-java (>= 0.2.0)
+      puppetlabs-stdlib (>= 3.2.0)
 
 DEPENDENCIES
   garethr-docker (= 4.0.2)
-  kayak-r9util (= 0.0.4)
   maestrodev-wget (= 1.5.6)
   puppet-bamboo_agent (>= 0)
   puppetlabs-apt (= 1.8.0)

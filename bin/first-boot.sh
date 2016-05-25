@@ -11,7 +11,7 @@ echo "Installing basic dependencies...."
 echo 'Installing git and ruby-dev'
 apt-get update
 apt-get -q -y install git
-apt-get install -y ruby-dev
+apt-get install -y ruby-dev make
 apt-get -y autoremove
 
 touch $GUARD_FILE   

@@ -7,8 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # canonical Ubuntu basebox
-  config.vm.box = "canonical-ubuntu-14.04"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "bamboo-agent.vagrant.openmrs.org"
   config.vm.synced_folder ".", "/etc/puppet/"
 
@@ -17,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 2
   end
 
-  config.vm.provision "shell", :path => 'bin/vagrant_boot.sh' 
+  config.vm.provision "shell", :path => 'bin/first-boot.sh' 
   
   # And running puppet 
   config.vm.provision "puppet" do |puppet|
