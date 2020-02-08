@@ -1,5 +1,12 @@
 openmrs-contrib-bambooagent
 ===========================
+
+## This repository migrated to <https://github.com/openmrs/openmrs-contrib-itsmresources/tree/master/bamboo-agents-puppet>
+
+## All passwords are invalid and have been rotated. 
+
+----
+
 Installation of Bamboo Agents.
 
 
